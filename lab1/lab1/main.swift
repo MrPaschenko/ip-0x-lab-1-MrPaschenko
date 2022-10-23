@@ -13,6 +13,20 @@ for i in 1...Int(size[1])! {
     arrayMain.append(array[1 + i].map { String($0) })
 }
 
+//Change "." to 0, "x" to 1
+func prepareArray(_ array: [[Any]]) -> [[Int]] {
+    var newArray: [[Int]] = []
+    
+    for i in 0...(array.count - 1) {
+        newArray.append([])
+        for k in 0...(array[i].count - 1) {
+            newArray[i].append(array[i][k] as! String == "." ? 0 : 1)
+        }
+    }
+        
+    return newArray
+}
+
 func cellInFuture(line: Int, column: Int, in array: [[Any]]) -> Int {
     let newArray = prepareArray(array)
     var neigboursNum = 0
@@ -90,28 +104,33 @@ func cellInFuture(line: Int, column: Int, in array: [[Any]]) -> Int {
             neigboursNum += newArray[line + 1][column - 1]
         }
     }
-    
     var cellInFuture = 0
-    if neigboursNum == 2 || neigboursNum == 3 {
-        cellInFuture = 1
+    
+    if newArray[line][column] == 0 {
+        if neigboursNum == 3 {
+            cellInFuture = 1
+        }
+    } else {
+        if neigboursNum == 2 || neigboursNum == 3 {
+            cellInFuture = 1
+        }
     }
-
+    
     return cellInFuture
 }
 
-
-//Change "." to 0, "x" to 1
-func prepareArray(_ array: [[Any]]) -> [[Int]] {
+func nextGen(of array: [[Any]]) -> [[Int]] {
     var newArray: [[Int]] = []
     
     for i in 0...(array.count - 1) {
         newArray.append([])
         for k in 0...(array[i].count - 1) {
-            newArray[i].append(array[i][k] as! String == "." ? 0 : 1)
+            newArray[i].append(cellInFuture(line: i, column: k, in: array))
         }
     }
         
     return newArray
+
 }
 
-print(cellInFuture(line: 4, column: 1, in: arrayMain))
+print(nextGen(of: arrayMain))
