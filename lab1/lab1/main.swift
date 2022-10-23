@@ -13,4 +13,100 @@ for i in 1...Int(size[1])! {
     arrayMain.append(array[1 + i].map { String($0) })
 }
 
-print(arrayMain[0])
+func calculateAliveNeighbours(line: Int, column: Int, in array: [[Any]]) -> Int {
+    let newArray = prepareArray(array)
+    var neigboursNum = 0
+    
+    //Calculate alive neighbours in its array
+    if column == 0 {
+        neigboursNum += newArray[line][column + 1]
+        neigboursNum += newArray[line].last!
+    } else if column == (newArray[line].count - 1) {
+        neigboursNum += newArray[line][column - 1]
+        neigboursNum += newArray[line][0]
+    } else {
+        neigboursNum += newArray[line][column + 1]
+        neigboursNum += newArray[line][column - 1]
+    }
+    
+    //Calculate alive neighbours in array above
+    if line == 0 {
+        if column == 0 {
+            neigboursNum += newArray.last![column]
+            neigboursNum += newArray.last![column + 1]
+            neigboursNum += newArray.last!.last!
+        } else if column == (newArray.last!.count - 1) {
+            neigboursNum += newArray.last![column]
+            neigboursNum += newArray.last![column - 1]
+            neigboursNum += newArray.last![0]
+        } else {
+            neigboursNum += newArray.last![column]
+            neigboursNum += newArray.last![column + 1]
+            neigboursNum += newArray.last![column - 1]
+        }
+    } else {
+        if column == 0 {
+            neigboursNum += newArray[line - 1][column]
+            neigboursNum += newArray[line - 1][column + 1]
+            neigboursNum += newArray[line - 1].last!
+        } else if column == (newArray[line - 1].count - 1) {
+            neigboursNum += newArray[line - 1][column]
+            neigboursNum += newArray[line - 1][column - 1]
+            neigboursNum += newArray[line - 1][0]
+        } else {
+            neigboursNum += newArray[line - 1][column]
+            neigboursNum += newArray[line - 1][column + 1]
+            neigboursNum += newArray[line - 1][column - 1]
+        }
+    }
+
+    //Calculate alive neighbours in array below
+    if line == (newArray.count - 1) {
+        if column == 0 {
+            neigboursNum += newArray[0][column]
+            neigboursNum += newArray[0][column + 1]
+            neigboursNum += newArray[0].last!
+        } else if column == (newArray[0].count - 1) {
+            neigboursNum += newArray[0][column]
+            neigboursNum += newArray[0][column - 1]
+            neigboursNum += newArray[0][0]
+        } else {
+            neigboursNum += newArray[0][column]
+            neigboursNum += newArray[0][column + 1]
+            neigboursNum += newArray[0][column - 1]
+        }
+    } else {
+        if column == 0 {
+            neigboursNum += newArray[line + 1][column]
+            neigboursNum += newArray[line + 1][column + 1]
+            neigboursNum += newArray[line + 1].last!
+        } else if column == (newArray[line + 1].count - 1) {
+            neigboursNum += newArray[line + 1][column]
+            neigboursNum += newArray[line + 1][column - 1]
+            neigboursNum += newArray[line + 1][0]
+        } else {
+            neigboursNum += newArray[line + 1][column]
+            neigboursNum += newArray[line + 1][column + 1]
+            neigboursNum += newArray[line + 1][column - 1]
+        }
+    }
+    
+    return neigboursNum
+}
+
+
+//Change "." to 0, "x" to 1
+func prepareArray(_ array: [[Any]]) -> [[Int]] {
+    var newArray: [[Int]] = []
+    
+    for i in 0...(array.count - 1) {
+        newArray.append([])
+        for k in 0...(array[i].count - 1) {
+            newArray[i].append(array[i][k] as! String == "." ? 0 : 1)
+        }
+    }
+        
+    return newArray
+}
+
+print("Alive neighbours number for cell (4, 0) is \(calculateAliveNeighbours(line: 4, column: 0, in: arrayMain))")
