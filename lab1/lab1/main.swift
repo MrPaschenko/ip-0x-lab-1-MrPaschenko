@@ -13,7 +13,7 @@ for i in 1...Int(size[1])! {
     arrayMain.append(array[1 + i].map { String($0) })
 }
 
-func calculateAliveNeighbours(line: Int, column: Int, in array: [[Any]]) -> Int {
+func cellInFuture(line: Int, column: Int, in array: [[Any]]) -> Int {
     let newArray = prepareArray(array)
     var neigboursNum = 0
     
@@ -91,7 +91,12 @@ func calculateAliveNeighbours(line: Int, column: Int, in array: [[Any]]) -> Int 
         }
     }
     
-    return neigboursNum
+    var cellInFuture = 0
+    if neigboursNum == 2 || neigboursNum == 3 {
+        cellInFuture = 1
+    }
+
+    return cellInFuture
 }
 
 
@@ -109,4 +114,4 @@ func prepareArray(_ array: [[Any]]) -> [[Int]] {
     return newArray
 }
 
-print("Alive neighbours number for cell (4, 0) is \(calculateAliveNeighbours(line: 4, column: 0, in: arrayMain))")
+print(cellInFuture(line: 4, column: 1, in: arrayMain))
