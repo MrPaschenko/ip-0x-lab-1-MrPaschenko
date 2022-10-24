@@ -3,7 +3,7 @@ import Foundation
 let string = try String(contentsOfFile: "/Users/mrpaschenko/Developer/ip-0x-lab-1-MrPaschenko/lab1/lab1/File.txt", encoding: String.Encoding.utf8)
 let array = string.split(separator: "\n")
 
-let numberOfGeneration = array[0]
+let numberOfGeneration = Int(array[0])!
 
 let size = array[1].split(separator: " ")
 
@@ -27,86 +27,85 @@ func prepareArray(_ array: [[Any]]) -> [[Int]] {
     return newArray
 }
 
-func cellInFuture(line: Int, column: Int, in array: [[Any]]) -> Int {
-    let newArray = prepareArray(array)
+func cellInFuture(line: Int, column: Int, in array: [[Int]]) -> Int {
     var neigboursNum = 0
     
     //Calculate alive neighbours in its array
     if column == 0 {
-        neigboursNum += newArray[line][column + 1]
-        neigboursNum += newArray[line].last!
-    } else if column == (newArray[line].count - 1) {
-        neigboursNum += newArray[line][column - 1]
-        neigboursNum += newArray[line][0]
+        neigboursNum += array[line][column + 1]
+        neigboursNum += array[line].last!
+    } else if column == (array[line].count - 1) {
+        neigboursNum += array[line][column - 1]
+        neigboursNum += array[line][0]
     } else {
-        neigboursNum += newArray[line][column + 1]
-        neigboursNum += newArray[line][column - 1]
+        neigboursNum += array[line][column + 1]
+        neigboursNum += array[line][column - 1]
     }
     
     //Calculate alive neighbours in array above
     if line == 0 {
         if column == 0 {
-            neigboursNum += newArray.last![column]
-            neigboursNum += newArray.last![column + 1]
-            neigboursNum += newArray.last!.last!
-        } else if column == (newArray.last!.count - 1) {
-            neigboursNum += newArray.last![column]
-            neigboursNum += newArray.last![column - 1]
-            neigboursNum += newArray.last![0]
+            neigboursNum += array.last![column]
+            neigboursNum += array.last![column + 1]
+            neigboursNum += array.last!.last!
+        } else if column == (array.last!.count - 1) {
+            neigboursNum += array.last![column]
+            neigboursNum += array.last![column - 1]
+            neigboursNum += array.last![0]
         } else {
-            neigboursNum += newArray.last![column]
-            neigboursNum += newArray.last![column + 1]
-            neigboursNum += newArray.last![column - 1]
+            neigboursNum += array.last![column]
+            neigboursNum += array.last![column + 1]
+            neigboursNum += array.last![column - 1]
         }
     } else {
         if column == 0 {
-            neigboursNum += newArray[line - 1][column]
-            neigboursNum += newArray[line - 1][column + 1]
-            neigboursNum += newArray[line - 1].last!
-        } else if column == (newArray[line - 1].count - 1) {
-            neigboursNum += newArray[line - 1][column]
-            neigboursNum += newArray[line - 1][column - 1]
-            neigboursNum += newArray[line - 1][0]
+            neigboursNum += array[line - 1][column]
+            neigboursNum += array[line - 1][column + 1]
+            neigboursNum += array[line - 1].last!
+        } else if column == (array[line - 1].count - 1) {
+            neigboursNum += array[line - 1][column]
+            neigboursNum += array[line - 1][column - 1]
+            neigboursNum += array[line - 1][0]
         } else {
-            neigboursNum += newArray[line - 1][column]
-            neigboursNum += newArray[line - 1][column + 1]
-            neigboursNum += newArray[line - 1][column - 1]
+            neigboursNum += array[line - 1][column]
+            neigboursNum += array[line - 1][column + 1]
+            neigboursNum += array[line - 1][column - 1]
         }
     }
 
     //Calculate alive neighbours in array below
-    if line == (newArray.count - 1) {
+    if line == (array.count - 1) {
         if column == 0 {
-            neigboursNum += newArray[0][column]
-            neigboursNum += newArray[0][column + 1]
-            neigboursNum += newArray[0].last!
-        } else if column == (newArray[0].count - 1) {
-            neigboursNum += newArray[0][column]
-            neigboursNum += newArray[0][column - 1]
-            neigboursNum += newArray[0][0]
+            neigboursNum += array[0][column]
+            neigboursNum += array[0][column + 1]
+            neigboursNum += array[0].last!
+        } else if column == (array[0].count - 1) {
+            neigboursNum += array[0][column]
+            neigboursNum += array[0][column - 1]
+            neigboursNum += array[0][0]
         } else {
-            neigboursNum += newArray[0][column]
-            neigboursNum += newArray[0][column + 1]
-            neigboursNum += newArray[0][column - 1]
+            neigboursNum += array[0][column]
+            neigboursNum += array[0][column + 1]
+            neigboursNum += array[0][column - 1]
         }
     } else {
         if column == 0 {
-            neigboursNum += newArray[line + 1][column]
-            neigboursNum += newArray[line + 1][column + 1]
-            neigboursNum += newArray[line + 1].last!
-        } else if column == (newArray[line + 1].count - 1) {
-            neigboursNum += newArray[line + 1][column]
-            neigboursNum += newArray[line + 1][column - 1]
-            neigboursNum += newArray[line + 1][0]
+            neigboursNum += array[line + 1][column]
+            neigboursNum += array[line + 1][column + 1]
+            neigboursNum += array[line + 1].last!
+        } else if column == (array[line + 1].count - 1) {
+            neigboursNum += array[line + 1][column]
+            neigboursNum += array[line + 1][column - 1]
+            neigboursNum += array[line + 1][0]
         } else {
-            neigboursNum += newArray[line + 1][column]
-            neigboursNum += newArray[line + 1][column + 1]
-            neigboursNum += newArray[line + 1][column - 1]
+            neigboursNum += array[line + 1][column]
+            neigboursNum += array[line + 1][column + 1]
+            neigboursNum += array[line + 1][column - 1]
         }
     }
     var cellInFuture = 0
     
-    if newArray[line][column] == 0 {
+    if array[line][column] == 0 {
         if neigboursNum == 3 {
             cellInFuture = 1
         }
@@ -119,7 +118,7 @@ func cellInFuture(line: Int, column: Int, in array: [[Any]]) -> Int {
     return cellInFuture
 }
 
-func nextGen(of array: [[Any]]) -> [[Int]] {
+func nextGen(of array: [[Int]]) -> [[Int]] {
     var newArray: [[Int]] = []
     
     for i in 0...(array.count - 1) {
@@ -133,4 +132,36 @@ func nextGen(of array: [[Any]]) -> [[Int]] {
 
 }
 
-print(nextGen(of: arrayMain))
+func nextNumberOfGens(of array: [[Any]], gen: Int) -> [[Int]] {
+    var newArray = prepareArray(array)
+    
+    for i in 1...gen {
+        newArray = nextGen(of: newArray)
+    }
+    
+    return newArray
+}
+
+func prepareArrayBack(_ array: [[Int]]) -> [[String]] {
+    var newArray: [[String]] = []
+    
+    for i in 0...(array.count - 1) {
+        newArray.append([])
+        for k in 0...(array[i].count - 1) {
+            newArray[i].append(array[i][k] == 0 ? "." : "x")
+        }
+    }
+        
+    return newArray
+}
+
+var newArray = prepareArrayBack(nextNumberOfGens(of: arrayMain, gen: numberOfGeneration))
+
+var newString = ""
+for i in newArray {
+    newString.append(i.joined())
+    newString.append("\n")
+}
+
+print(newString)
+try newString.write(toFile: "/Users/mrpaschenko/Developer/ip-0x-lab-1-MrPaschenko/lab1/lab1/File.txt", atomically: true, encoding: .utf8)
