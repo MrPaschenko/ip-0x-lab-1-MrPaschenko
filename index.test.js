@@ -20,3 +20,9 @@ test('Check height', () => {
   const height = parseString(string)[1][1];
   expect(height).toEqual(5);
 });
+
+test('Check array', () => {
+  const string = fs.readFileSync('./input.txt', 'utf8');
+  const array = parseString(string)[2];
+  expect(array).toEqual([ '........', '..x.....', '..x.....', '..x.....', '........' ]);
+});
