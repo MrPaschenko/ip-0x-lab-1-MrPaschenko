@@ -1,6 +1,6 @@
 'use strict';
 
-const { parseString, prepareArray, calculateCellNeighbours } = require('./index');
+const { parseString, prepareArray, calculateCellNeighbours, predictCellInFuture } = require('./index');
 const fs = require('fs');
 
 test('Check number of generation', () => {
@@ -46,4 +46,16 @@ test('Check number of cell neighbours', () => {
   const preparedArray = prepareArray(array);
   //Cell (2, 1) has 3 neighbours
   expect(calculateCellNeighbours(2, 1, preparedArray)).toEqual(3);
+});
+
+test('Check cell future prediction', () => {
+  expect(predictCellInFuture(0, 3)).toEqual(1);
+  expect(predictCellInFuture(0, 2)).toEqual(0);
+  expect(predictCellInFuture(0, 4)).toEqual(0);
+
+  expect(predictCellInFuture(1, 2)).toEqual(1);
+  expect(predictCellInFuture(1, 3)).toEqual(1);
+  expect(predictCellInFuture(1, 1)).toEqual(0);
+  expect(predictCellInFuture(1, 4)).toEqual(0);
+
 });

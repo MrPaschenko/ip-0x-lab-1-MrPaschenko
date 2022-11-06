@@ -1,7 +1,7 @@
 'use strict';
 
 const fs = require('fs');
-module.exports = { parseString, prepareArray, calculateCellNeighbours };
+module.exports = { parseString, prepareArray, calculateCellNeighbours, predictCellInFuture };
 
 const string = fs.readFileSync('./input.txt', 'utf8');
 
@@ -107,7 +107,19 @@ function calculateCellNeighbours(line, column, array) {
   return neigboursNum;
 }
 
+function predictCellInFuture(cell, neigboursNum) {
+  let cellInFuture = 0;
 
+  if (cell === 0) {
+    if (neigboursNum === 3) {
+      cellInFuture = 1;
+    }
+  } else if (neigboursNum === 2 || neigboursNum === 3) {
+    cellInFuture = 1;
+  }
+
+  return cellInFuture;
+}
 
 const array = parseString(string)[2];
 const preparedArray = prepareArray(array);
