@@ -3,9 +3,11 @@
 const { parseString, } = require('./index');
 const fs = require('fs');
 
-// test('Check number of generation', () => {
-//
-// });
+test('Check number of generation', () => {
+  const string = fs.readFileSync('./input.txt', 'utf8');
+  const numberOfGeneration = parseString(string)[0];
+  expect(numberOfGeneration).toEqual(3);
+});
 
 test('Check width', () => {
   const string = fs.readFileSync('./input.txt', 'utf8');
