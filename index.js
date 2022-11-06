@@ -8,7 +8,7 @@ const string = fs.readFileSync('./input.txt', 'utf8');
 function parseString(string) {
   const generalArray = string.split('\n');
 
-  const numberOfGeneration = generalArray[0];
+  const numberOfGeneration = parseInt(generalArray[0]);
   const width = parseInt(generalArray[1].split(' ')[0]);
   const height = parseInt(generalArray[1].split(' ')[1]);
   const size = [width, height];
