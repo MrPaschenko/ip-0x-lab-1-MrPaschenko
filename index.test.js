@@ -1,6 +1,6 @@
 'use strict';
 
-const { parseString, } = require('./index');
+const { parseString, prepareArray } = require('./index');
 const fs = require('fs');
 
 test('Check number of generation', () => {
@@ -25,4 +25,17 @@ test('Check array', () => {
   const string = fs.readFileSync('./input.txt', 'utf8');
   const array = parseString(string)[2];
   expect(array).toEqual([ '........', '..x.....', '..x.....', '..x.....', '........' ]);
+});
+
+test('Check prepared array', () => {
+  const string = fs.readFileSync('./input.txt', 'utf8');
+  const array = parseString(string)[2];
+  const preparedArray = prepareArray(array);
+  expect(preparedArray).toEqual([
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 1, 0, 0, 0, 0, 0],
+    [0, 0, 1, 0, 0, 0, 0, 0],
+    [0, 0, 1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0]
+  ]);
 });

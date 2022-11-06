@@ -1,7 +1,7 @@
 'use strict';
 
 const fs = require('fs');
-module.exports = { parseString };
+module.exports = { parseString, prepareArray };
 
 const string = fs.readFileSync('./input.txt', 'utf8');
 
@@ -35,4 +35,3 @@ function prepareArray(array) {
 }
 
 const newArray = prepareArray(parseString(string)[2]);
-console.log(newArray);
