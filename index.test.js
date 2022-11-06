@@ -1,6 +1,6 @@
 'use strict';
 
-const { parseString, prepareArray } = require('./index');
+const { parseString, prepareArray, calculateCellNeighbours } = require('./index');
 const fs = require('fs');
 
 test('Check number of generation', () => {
@@ -38,4 +38,12 @@ test('Check prepared array', () => {
     [0, 0, 1, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0]
   ]);
+});
+
+test('Check number of cell neighbours', () => {
+  const string = fs.readFileSync('./input.txt', 'utf8');
+  const array = parseString(string)[2];
+  const preparedArray = prepareArray(array);
+  //Cell (2, 1) has 3 neighbours
+  expect(calculateCellNeighbours(2, 1, preparedArray)).toEqual(3);
 });

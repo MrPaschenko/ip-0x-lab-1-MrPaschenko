@@ -1,7 +1,7 @@
 'use strict';
 
 const fs = require('fs');
-module.exports = { parseString, prepareArray };
+module.exports = { parseString, prepareArray, calculateCellNeighbours };
 
 const string = fs.readFileSync('./input.txt', 'utf8');
 
@@ -34,4 +34,82 @@ function prepareArray(array) {
   return newArray;
 }
 
-const newArray = prepareArray(parseString(string)[2]);
+function calculateCellNeighbours(line, column, array) {
+  let neigboursNum = 0;
+  if (column === 0) {
+    neigboursNum += array[line][column + 1];
+    neigboursNum += array[line].last;
+  } else if (column === (array[line].count - 1)) {
+    neigboursNum += array[line][column - 1];
+    neigboursNum += array[line][0];
+  } else {
+    neigboursNum += array[line][column + 1];
+    neigboursNum += array[line][column - 1];
+  }
+
+  //Calculate alive neighbours in array above
+  if (line === 0) {
+    if (column === 0) {
+      neigboursNum += array.last[column];
+      neigboursNum += array.last[column + 1];
+      neigboursNum += array.last.last;
+    } else if (column === (array.last.count - 1)) {
+      neigboursNum += array.last[column];
+      neigboursNum += array.last[column - 1];
+      neigboursNum += array.last[0];
+    } else {
+      neigboursNum += array.last[column];
+      neigboursNum += array.last[column + 1];
+      neigboursNum += array.last[column - 1];
+    }
+  } else if (column === 0) {
+    neigboursNum += array[line - 1][column];
+    neigboursNum += array[line - 1][column + 1];
+    neigboursNum += array[line - 1].last;
+  } else if (column === (array[line - 1].count - 1)) {
+    neigboursNum += array[line - 1][column];
+    neigboursNum += array[line - 1][column - 1];
+    neigboursNum += array[line - 1][0];
+  } else {
+    neigboursNum += array[line - 1][column];
+    neigboursNum += array[line - 1][column + 1];
+    neigboursNum += array[line - 1][column - 1];
+  }
+
+  //Calculate alive neighbours in array below
+  if (line === (array.count - 1)) {
+    if (column === 0) {
+      neigboursNum += array[0][column];
+      neigboursNum += array[0][column + 1];
+      neigboursNum += array[0].last;
+    } else if (column === (array[0].count - 1)) {
+      neigboursNum += array[0][column];
+      neigboursNum += array[0][column - 1];
+      neigboursNum += array[0][0];
+    } else {
+      neigboursNum += array[0][column];
+      neigboursNum += array[0][column + 1];
+      neigboursNum += array[0][column - 1];
+    }
+  } else if (column === 0) {
+    neigboursNum += array[line + 1][column];
+    neigboursNum += array[line + 1][column + 1];
+    neigboursNum += array[line + 1].last;
+  } else if (column === (array[line + 1].count - 1)) {
+    neigboursNum += array[line + 1][column];
+    neigboursNum += array[line + 1][column - 1];
+    neigboursNum += array[line + 1][0];
+  } else {
+    neigboursNum += array[line + 1][column];
+    neigboursNum += array[line + 1][column + 1];
+    neigboursNum += array[line + 1][column - 1];
+  }
+  return neigboursNum;
+}
+
+
+
+const array = parseString(string)[2];
+const preparedArray = prepareArray(array);
+
+console.log(calculateCellNeighbours(2, 1, preparedArray));
