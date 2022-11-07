@@ -39,7 +39,7 @@ function calculateCellNeighbours(line, column, array) {
   if (column === 0) {
     neigboursNum += array[line][column + 1];
     neigboursNum += array[line].last;
-  } else if (column === (array[line].count - 1)) {
+  } else if (column === (array[line].length - 1)) {
     neigboursNum += array[line][column - 1];
     neigboursNum += array[line][0];
   } else {
@@ -53,7 +53,7 @@ function calculateCellNeighbours(line, column, array) {
       neigboursNum += array.last[column];
       neigboursNum += array.last[column + 1];
       neigboursNum += array.last.last;
-    } else if (column === (array.last.count - 1)) {
+    } else if (column === (array.last.length - 1)) {
       neigboursNum += array.last[column];
       neigboursNum += array.last[column - 1];
       neigboursNum += array.last[0];
@@ -66,7 +66,7 @@ function calculateCellNeighbours(line, column, array) {
     neigboursNum += array[line - 1][column];
     neigboursNum += array[line - 1][column + 1];
     neigboursNum += array[line - 1].last;
-  } else if (column === (array[line - 1].count - 1)) {
+  } else if (column === (array[line - 1].length - 1)) {
     neigboursNum += array[line - 1][column];
     neigboursNum += array[line - 1][column - 1];
     neigboursNum += array[line - 1][0];
@@ -77,12 +77,12 @@ function calculateCellNeighbours(line, column, array) {
   }
 
   //Calculate alive neighbours in array below
-  if (line === (array.count - 1)) {
+  if (line === (array.length - 1)) {
     if (column === 0) {
       neigboursNum += array[0][column];
       neigboursNum += array[0][column + 1];
       neigboursNum += array[0].last;
-    } else if (column === (array[0].count - 1)) {
+    } else if (column === (array[0].length - 1)) {
       neigboursNum += array[0][column];
       neigboursNum += array[0][column - 1];
       neigboursNum += array[0][0];
@@ -95,7 +95,7 @@ function calculateCellNeighbours(line, column, array) {
     neigboursNum += array[line + 1][column];
     neigboursNum += array[line + 1][column + 1];
     neigboursNum += array[line + 1].last;
-  } else if (column === (array[line + 1].count - 1)) {
+  } else if (column === (array[line + 1].length - 1)) {
     neigboursNum += array[line + 1][column];
     neigboursNum += array[line + 1][column - 1];
     neigboursNum += array[line + 1][0];
