@@ -182,4 +182,4 @@ for (const line of preparedBackArray) {
   newString += '\n';
 }
 
-fs.writeFileSync('./input.txt', newString);
+fs.writeFileSync('./output.txt', newString);
