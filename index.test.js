@@ -1,6 +1,12 @@
 'use strict';
 
-const { parseString, prepareArray, calculateCellNeighbours, predictCellInFuture } = require('./index');
+const {
+  parseString,
+  prepareArray,
+  calculateCellNeighbours,
+  predictCellInFuture,
+  calculateNextGen
+} = require('./index');
 const fs = require('fs');
 
 test('Check number of generation', () => {
@@ -57,5 +63,20 @@ test('Check cell future prediction', () => {
   expect(predictCellInFuture(1, 3)).toEqual(1);
   expect(predictCellInFuture(1, 1)).toEqual(0);
   expect(predictCellInFuture(1, 4)).toEqual(0);
+});
 
+test('Check array next generation calculation', () => {
+  expect(calculateNextGen([
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 1, 0, 0, 0, 0, 0],
+    [0, 0, 1, 0, 0, 0, 0, 0],
+    [0, 0, 1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0]
+  ])).toEqual([
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 1, 1, 1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0]
+  ]);
 });
