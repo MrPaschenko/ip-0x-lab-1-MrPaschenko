@@ -6,7 +6,8 @@ const {
   calculateCellNeighbours,
   predictCellInFuture,
   calculateNextGen,
-  calculateNextNumOfGen
+  calculateNextNumOfGen,
+  prepareArrayBack
 } = require('./index');
 const fs = require('fs');
 
@@ -95,5 +96,21 @@ test('Check array next n generations calculation', () => {
     [0, 1, 1, 1, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0]
+  ]);
+});
+
+test('Check prepared back array', () => {
+  expect(prepareArrayBack([
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 1, 1, 1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0]
+  ])).toEqual([
+    ['.', '.', '.', '.', '.', '.', '.', '.'],
+    ['.', '.', '.', '.', '.', '.', '.', '.'],
+    ['.', 'x', 'x', 'x', '.', '.', '.', '.'],
+    ['.', '.', '.', '.', '.', '.', '.', '.'],
+    ['.', '.', '.', '.', '.', '.', '.', '.']
   ]);
 });

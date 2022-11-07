@@ -7,7 +7,8 @@ module.exports = {
   calculateCellNeighbours,
   predictCellInFuture,
   calculateNextGen,
-  calculateNextNumOfGen
+  calculateNextNumOfGen,
+  prepareArrayBack
 };
 
 const string = fs.readFileSync('./input.txt', 'utf8');
@@ -146,6 +147,23 @@ function calculateNextNumOfGen(array, gen) {
 
   for (let i = 0; i <= gen; i++) {
     newArray = calculateNextGen(array);
+  }
+
+  return newArray;
+}
+
+function prepareArrayBack(array) {
+  const newArray = [];
+
+  for (const lineIndex in array) {
+    newArray.push([]);
+    for (const symbolIndex in array[lineIndex]) {
+      if (array[lineIndex][symbolIndex] === 0) {
+        newArray[lineIndex][symbolIndex] = '.';
+      } else {
+        newArray[lineIndex][symbolIndex] = 'x';
+      }
+    }
   }
 
   return newArray;
