@@ -169,5 +169,17 @@ function prepareArrayBack(array) {
   return newArray;
 }
 
+const numberOfGeneration = parseString(string)[0];
 const array = parseString(string)[2];
 const preparedArray = prepareArray(array);
+
+const newArray = calculateNextNumOfGen(preparedArray, numberOfGeneration);
+const preparedBackArray = prepareArrayBack(newArray);
+
+let newString = '';
+for (const line of preparedBackArray) {
+  newString += line.join('');
+  newString += '\n';
+}
+
+fs.writeFileSync('./input.txt', newString);
