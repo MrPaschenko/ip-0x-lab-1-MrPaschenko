@@ -9,51 +9,175 @@ const {
   calculateNextNumOfGen,
   prepareArrayBack
 } = require('./index');
-const fs = require('fs');
 
-test('Check number of generation', () => {
-  const string = fs.readFileSync('./input.txt', 'utf8');
-  const numberOfGeneration = parseString(string)[0];
-  expect(numberOfGeneration).toEqual(3);
+test('Check number of generation (3)', () => {
+  expect(parseString(
+    '3\n' +
+    '8 5\n' +
+    '........\n' +
+    '..x.....\n' +
+    '..x.....\n' +
+    '..x.....\n' +
+    '........\n')[0])
+    .toEqual(3);
 });
 
-test('Check width', () => {
-  const string = fs.readFileSync('./input.txt', 'utf8');
-  const width = parseString(string)[1][0];
-  expect(width).toEqual(8);
+test('Check number of generation (5)', () => {
+  expect(parseString(
+    '5\n' +
+    '8 5\n' +
+    '........\n' +
+    '..x.....\n' +
+    '..x.....\n' +
+    '..x.....\n' +
+    '........\n')[0])
+    .toEqual(5);
 });
 
-test('Check height', () => {
-  const string = fs.readFileSync('./input.txt', 'utf8');
-  const height = parseString(string)[1][1];
-  expect(height).toEqual(5);
+test('Check width (8)', () => {
+  expect(parseString(
+    '3\n' +
+    '8 5\n' +
+    '........\n' +
+    '..x.....\n' +
+    '..x.....\n' +
+    '..x.....\n' +
+    '........\n')[1][0])
+    .toEqual(8);
 });
 
-test('Check array', () => {
-  const string = fs.readFileSync('./input.txt', 'utf8');
-  const array = parseString(string)[2];
-  expect(array).toEqual([ '........', '..x.....', '..x.....', '..x.....', '........' ]);
+test('Check width (4)', () => {
+  expect(parseString(
+    '3\n' +
+    '4 5\n' +
+    '....\n' +
+    '..x.\n' +
+    '..x.\n' +
+    '..x.\n' +
+    '....\n')[1][0])
+    .toEqual(4);
 });
 
-test('Check prepared array', () => {
-  const string = fs.readFileSync('./input.txt', 'utf8');
-  const array = parseString(string)[2];
-  const preparedArray = prepareArray(array);
-  expect(preparedArray).toEqual([
+test('Check height (5)', () => {
+  expect(parseString(
+    '3\n' +
+    '8 5\n' +
+    '........\n' +
+    '..x.....\n' +
+    '..x.....\n' +
+    '..x.....\n' +
+    '........\n')[1][1])
+    .toEqual(5);
+});
+
+test('Check height (3)', () => {
+  expect(parseString(
+    '3\n' +
+    '8 3\n' +
+    '........\n' +
+    '..x.....\n' +
+    '..x.....\n')[1][1])
+    .toEqual(3);
+});
+
+test('Check array (1)', () => {
+  expect(parseString(
+    '3\n' +
+    '8 5\n' +
+    '........\n' +
+    '..x.....\n' +
+    '..x.....\n' +
+    '..x.....\n' +
+    '........\n')[2])
+    .toEqual([
+      '........',
+      '..x.....',
+      '..x.....',
+      '..x.....',
+      '........' ]);
+});
+
+test('Check array (2)', () => {
+  expect(parseString(
+    '3\n' +
+    '8 5\n' +
+    '........\n' +
+    '....x...\n' +
+    '..x.x...\n' +
+    '..x...x.\n' +
+    '........\n')[2])
+    .toEqual([
+      '........',
+      '....x...',
+      '..x.x...',
+      '..x...x.',
+      '........' ]);
+});
+
+test('Check prepared array (1)', () => {
+  expect(prepareArray(parseString(
+    '3\n' +
+    '8 5\n' +
+    '........\n' +
+    '..x.....\n' +
+    '..x.....\n' +
+    '..x.....\n' +
+    '........\n')[2]))
+    .toEqual([
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 1, 0, 0, 0, 0, 0],
+      [0, 0, 1, 0, 0, 0, 0, 0],
+      [0, 0, 1, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0]
+    ]);
+});
+
+test('Check prepared array (2)', () => {
+  expect(prepareArray(parseString(
+    '3\n' +
+    '8 5\n' +
+    '........\n' +
+    '..x...x.\n' +
+    '..x...x.\n' +
+    '..x...x.\n' +
+    '....x...\n')[2]))
+    .toEqual([
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 1, 0, 0, 0, 1, 0],
+      [0, 0, 1, 0, 0, 0, 1, 0],
+      [0, 0, 1, 0, 0, 0, 1, 0],
+      [0, 0, 0, 0, 1, 0, 0, 0]
+    ]);
+});
+
+test('Check number of cell neighbours (1)', () => {
+  expect(calculateCellNeighbours(2, 1, [
     [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 1, 0, 0, 0, 0, 0],
-    [0, 0, 1, 0, 0, 0, 0, 0],
-    [0, 0, 1, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0]
-  ]);
+    [0, 0, 1, 0, 0, 0, 1, 0],
+    [0, 0, 1, 0, 0, 0, 1, 0],
+    [0, 0, 1, 0, 0, 0, 1, 0],
+    [0, 0, 0, 0, 1, 0, 0, 0]]))
+    .toEqual(3);
 });
 
-test('Check number of cell neighbours', () => {
-  const string = fs.readFileSync('./input.txt', 'utf8');
-  const array = parseString(string)[2];
-  const preparedArray = prepareArray(array);
-  //Cell (2, 1) has 3 neighbours
-  expect(calculateCellNeighbours(2, 1, preparedArray)).toEqual(3);
+test('Check number of cell neighbours (2)', () => {
+  expect(calculateCellNeighbours(0, 1, [
+    [0, 0, 1, 0, 0, 0, 0, 1],
+    [1, 0, 1, 0, 0, 0, 1, 0],
+    [0, 0, 1, 0, 0, 0, 1, 0],
+    [0, 0, 1, 0, 0, 0, 1, 0],
+    [1, 0, 0, 0, 1, 0, 0, 0]]))
+    .toEqual(4);
+});
+
+test('Check number of cell neighbours (2)', () => {
+  expect(calculateCellNeighbours(3, 4, [
+    [0, 0, 1, 0, 0, 0, 0, 1],
+    [1, 0, 1, 0, 0, 0, 1, 0],
+    [0, 0, 1, 0, 0, 0, 1, 0],
+    [0, 0, 1, 0, 0, 0, 1, 0],
+    [1, 0, 0, 0, 1, 0, 0, 0]]))
+    .toEqual(0);
 });
 
 test('Check cell future prediction', () => {
@@ -67,20 +191,38 @@ test('Check cell future prediction', () => {
   expect(predictCellInFuture(1, 4)).toEqual(0);
 });
 
-test('Check array next generation calculation', () => {
+test('Check array next generation calculation (1)', () => {
   expect(calculateNextGen([
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 1, 0, 0, 0, 0, 0],
     [0, 0, 1, 0, 0, 0, 0, 0],
     [0, 0, 1, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0]
-  ])).toEqual([
+  ]))
+    .toEqual([
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 1, 1, 1, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0]
+    ]);
+});
+
+test('Check array next generation calculation (2)', () => {
+  expect(calculateNextGen([
     [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 1, 1, 1, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 1, 0, 0, 0, 0, 0],
+    [0, 0, 1, 0, 0, 1, 1, 1],
+    [0, 0, 1, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0]
-  ]);
+  ]))
+    .toEqual([
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 1, 0],
+      [0, 1, 1, 1, 0, 0, 1, 0],
+      [0, 0, 0, 0, 0, 0, 1, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0]
+    ]);
 });
 
 test('Check array next n generations calculation', () => {
@@ -90,27 +232,46 @@ test('Check array next n generations calculation', () => {
     [0, 0, 1, 0, 0, 0, 0, 0],
     [0, 0, 1, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0]
-  ], 3)).toEqual([
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 1, 1, 1, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0]
-  ]);
+  ], 3))
+    .toEqual([
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 1, 1, 1, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0]
+    ]);
 });
 
-test('Check prepared back array', () => {
+test('Check prepared back array (1)', () => {
   expect(prepareArrayBack([
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 1, 1, 1, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0]
-  ])).toEqual([
-    ['.', '.', '.', '.', '.', '.', '.', '.'],
-    ['.', '.', '.', '.', '.', '.', '.', '.'],
-    ['.', 'x', 'x', 'x', '.', '.', '.', '.'],
-    ['.', '.', '.', '.', '.', '.', '.', '.'],
-    ['.', '.', '.', '.', '.', '.', '.', '.']
-  ]);
+  ]))
+    .toEqual([
+      ['.', '.', '.', '.', '.', '.', '.', '.'],
+      ['.', '.', '.', '.', '.', '.', '.', '.'],
+      ['.', 'x', 'x', 'x', '.', '.', '.', '.'],
+      ['.', '.', '.', '.', '.', '.', '.', '.'],
+      ['.', '.', '.', '.', '.', '.', '.', '.']
+    ]);
+});
+
+test('Check prepared back array (2)', () => {
+  expect(prepareArrayBack([
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 1, 0, 1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 0, 0, 1, 0]
+  ]))
+    .toEqual([
+      ['.', '.', '.', '.', '.', '.', '.', '.'],
+      ['.', '.', '.', '.', '.', '.', '.', '.'],
+      ['.', 'x', '.', 'x', '.', '.', '.', '.'],
+      ['.', '.', '.', '.', '.', '.', '.', '.'],
+      ['.', '.', '.', 'x', '.', '.', 'x', '.']
+    ]);
 });
