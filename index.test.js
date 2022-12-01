@@ -177,7 +177,7 @@ test('Check number of cell neighbours (2)', () => {
     [0, 0, 1, 0, 0, 0, 1, 0],
     [0, 0, 1, 0, 0, 0, 1, 0],
     [1, 0, 0, 0, 1, 0, 0, 0]]))
-    .toEqual(0);
+    .toEqual(1);
 });
 
 test('Check cell future prediction', () => {
